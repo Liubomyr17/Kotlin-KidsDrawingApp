@@ -8,10 +8,6 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 
-// TODO (Step 3 : Creating a drawing view with some basic features as creating canvas to draw with required attributes
-//  and providing a default color and size of stroke.)
-// START
-
 /**
  * This class contains the attributes for the main layout of
  * our application.
@@ -58,8 +54,8 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
      * drawing)
      */
     private var canvas: Canvas? = null
-    private val mPaths = ArrayList<CustomPath>()
 
+    private val mPaths = ArrayList<CustomPath>() // ArrayList for Paths
 
     init {
         setUpDrawing()
@@ -81,8 +77,8 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
 
         mCanvasPaint = Paint(Paint.DITHER_FLAG) // Paint flag that enables dithering when blitting.
 
-//        mBrushSize =
-//            20.toFloat() // Here the default or we can initial brush/ stroke size is defined.
+        mBrushSize =
+            20.toFloat() // Here the default or we can initial brush/ stroke size is defined.
     }
 
     override fun onSizeChanged(w: Int, h: Int, wprev: Int, hprev: Int) {
@@ -112,11 +108,10 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
          */
         canvas.drawBitmap(mCanvasBitmap!!, 0f, 0f, mCanvasPaint)
 
-        for (path in mPaths) {
-            mDrawPaint!!.strokeWidth = path.brushThickness
-            mDrawPaint!!.color = mDrawPath!!.color
-            canvas.drawPath(path, mDrawPaint!!)
-
+        for (p in mPaths) {
+            mDrawPaint!!.strokeWidth = p.brushThickness
+            mDrawPaint!!.color = p.color
+            canvas.drawPath(p, mDrawPaint!!)
         }
 
         if (!mDrawPath!!.isEmpty) {
@@ -154,7 +149,9 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
             }
 
             MotionEvent.ACTION_UP -> {
-                mPaths.add(mDrawPath!!)
+
+                mPaths.add(mDrawPath!!) //Add when to stroke is drawn to canvas and added in the path arraylist
+
                 mDrawPath = CustomPath(color, mBrushSize)
             }
             else -> return false
@@ -164,13 +161,33 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         return true
     }
 
+    /**
+     * This method is called when either the brush or the eraser
+     * sizes are to be changed. This method sets the brush/eraser
+     * sizes to the new values depending on user selection.
+     */
     fun setSizeForBrush(newSize: Float) {
-        mBrushSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-        newSize, resources.displayMetrics)
+        mBrushSize = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, newSize,
+                resources.displayMetrics
+        )
         mDrawPaint!!.strokeWidth = mBrushSize
     }
+
+    // TODO(Step 1 : Creating a function to set the selected color to DrawingView on click of colors in color pallet.)
+    // START
+    /**
+     * This function is called when the user desires a color change.
+     * This functions sets the color of a store to selected color and able to draw on view using that color.
+     *
+     * @param newColor
+     */
+    fun setColor(newColor: String) {
+        color = Color.parseColor(newColor)
+        mDrawPaint!!.color = color
+    }
+    // END
 
     // An inner class for custom path with two params as color and stroke size.
     internal inner class CustomPath(var color: Int, var brushThickness: Float) : Path()
 }
-// END
