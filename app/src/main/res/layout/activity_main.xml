@@ -1,34 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <!-- TODO (Step 4 : Adding the drawing view class in main activity layout to draw and make it visible in the UI.)-->
+    -<androidx.constraintlayout.widget.ConstraintLayout tools:context=".MainActivity" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.kidsdrawingapp.DrawingView android:layout_height="0dp" android:layout_width="0dp" app:layout_constraintTop_toTopOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintBottom_toTopOf="@+id/ll_paint_colors" android:background="@drawable/background_drawing_view_layout" android:layout_marginBottom="80dp" android:layout_margin="5dp" android:id="@+id/drawing_view"/>
+
+    <!--TODO(Step 3 - We have added a onclick method as 'paintClicked' for all the image buttons which is further defined in MainActivity for selection from color pallet.)-->
+
+
     <!--START-->
-    <com.kidsdrawingapp.DrawingView
-        android:id="@+id/drawing_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="5dp"
-        android:layout_marginBottom="80dp"
-        android:background="@drawable/background_drawing_view_layout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/ib_brush" />
-    <ImageButton
-        android:id="@+id/ib_brush"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_brush"
-        android:contentDescription="brush image"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
-    <!--END-->
+
+
+    <!-- Color pallet_normal -->
+
+
+
+    -<LinearLayout android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintRight_toRightOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintBottom_toTopOf="@id/ib_brush" android:id="@+id/ll_paint_colors" app:layout_constraintTop_toBottomOf="@id/drawing_view" android:orientation="horizontal">
+
+    <ImageButton android:layout_height="25dp" android:layout_width="25dp" android:background="@color/skin" android:layout_margin="2dp" android:tag="@color/skin" android:src="@drawable/pallet_normal" android:onClick="paintClicked" android:contentDescription="image"/>
+
+    <ImageButton android:layout_height="25dp" android:layout_width="25dp" android:background="@color/black" android:layout_margin="2dp" android:tag="@color/black" android:src="@drawable/pallet_normal" android:onClick="paintClicked" android:contentDescription="image"/>
+
+    <ImageButton android:layout_height="25dp" android:layout_width="25dp" android:background="@color/red" android:layout_margin="2dp" android:tag="@color/red" android:src="@drawable/pallet_normal" android:onClick="paintClicked" android:contentDescription="image"/>
+
+    <ImageButton android:layout_height="25dp" android:layout_width="25dp" android:background="@color/green" android:layout_margin="2dp" android:tag="@color/green" android:src="@drawable/pallet_normal" android:onClick="paintClicked" android:contentDescription="image"/>
+
+    <ImageButton android:layout_height="25dp" android:layout_width="25dp" android:background="@color/blue" android:layout_margin="2dp" android:tag="@color/blue" android:src="@drawable/pallet_normal" android:onClick="paintClicked" android:contentDescription="image"/>
+
+    <ImageButton android:layout_height="25dp" android:layout_width="25dp" android:background="@color/yellow" android:layout_margin="2dp" android:tag="@color/yellow" android:src="@drawable/pallet_normal" android:onClick="paintClicked" android:contentDescription="image"/>
+
+    <ImageButton android:layout_height="25dp" android:layout_width="25dp" android:background="@color/lollipop" android:layout_margin="2dp" android:tag="@color/lollipop" android:src="@drawable/pallet_normal" android:onClick="paintClicked" android:contentDescription="image"/>
+
+    <ImageButton android:layout_height="25dp" android:layout_width="25dp" android:background="@color/random" android:layout_margin="2dp" android:tag="@color/random" android:src="@drawable/pallet_normal" android:onClick="paintClicked" android:contentDescription="image"/>
+
+</LinearLayout>
+
+    <ImageButton android:layout_height="50dp" android:layout_width="50dp" app:layout_constraintRight_toRightOf="parent" app:layout_constraintLeft_toLeftOf="parent" android:layout_margin="5dp" android:id="@+id/ib_brush" android:src="@drawable/ic_brush" android:contentDescription="image" app:layout_constraintBottom_toBottomOf="parent" android:scaleType="fitXY"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
