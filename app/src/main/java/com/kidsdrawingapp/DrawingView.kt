@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
@@ -129,6 +130,7 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
             canvas.drawPath(mDrawPath!!, mDrawPaint!!)
         }
     }
+
 
     /**
      * This method acts as an event listener when a touch
