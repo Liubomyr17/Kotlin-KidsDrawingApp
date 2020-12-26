@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
@@ -58,17 +57,10 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
 
     private val mPaths = ArrayList<CustomPath>() // ArrayList for Paths
 
-    private val mUndoPath = ArrayList<CustomPath>()
+    private val mUndoPaths = ArrayList<CustomPath>()
 
     init {
         setUpDrawing()
-    }
-
-    fun onClickUndo() {
-        if (mPaths.size > 0) {
-            mUndoPath.add(mPaths.removeAt(mPaths.size - 1))
-            invalidate()
-        }
     }
 
     /**
@@ -131,7 +123,6 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         }
     }
 
-
     /**
      * This method acts as an event listener when a touch
      * event is detected on the device.
@@ -185,8 +176,6 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         mDrawPaint!!.strokeWidth = mBrushSize
     }
 
-    // TODO(Step 1 : Creating a function to set the selected color to DrawingView on click of colors in color pallet.)
-    // START
     /**
      * This function is called when the user desires a color change.
      * This functions sets the color of a store to selected color and able to draw on view using that color.
@@ -197,7 +186,20 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         color = Color.parseColor(newColor)
         mDrawPaint!!.color = color
     }
-    // END
+
+    /**
+     * This function is called when the user selects the undo
+     * command from the application. This function removes the
+     * last stroke input by the user depending on the
+     * number of times undo has been activated.
+     */
+    fun onClickUndo() {
+        if (mPaths.size > 0) {
+
+            mUndoPaths.add(mPaths.removeAt(mPaths.size - 1))
+            invalidate() // Invalidate the whole view. If the view is visible
+        }
+    }
 
     // An inner class for custom path with two params as color and stroke size.
     internal inner class CustomPath(var color: Int, var brushThickness: Float) : Path()
